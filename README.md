@@ -39,10 +39,6 @@ To verify the stats on-chain, you can run the following command:
 dfx canister --network ic ma7mv-qyaaa-aaaaj-qa3xq-cai getStats
 ```
 
-## Article
-
-[TODO]()
-
 ## Credits
 
-Created by [seb_icp](https://x.com/seb_icp/), with love, for the [ICPCC DAO](https://osjzm-oaaaa-aaaal-ajcoq-cai.icp0.io/).
+Created by [seb_icp](https://x.com/seb_icp/), with love, for the [ICPCC DAO](https://osjzm-oaaaa-aaaal-ajcoq-cai.icp0.io/) ❤️
