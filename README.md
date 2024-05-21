@@ -36,8 +36,10 @@ And, of course, [Bioniq](https://bioniq.io/) for contributing the Galactic Alien
 To verify the stats on-chain, you can run the following command:
 
 ```
-dfx canister --network ic ma7mv-qyaaa-aaaaj-qa3xq-cai getStats
+dfx canister --network ic ma7mv-qyaaa-aaaaj-qa3xq-cai call getStats
 ```
+
+Or simply call the `getStats` method using the [ICP Dashboard](https://dashboard.internetcomputer.org/canister/ma7mv-qyaaa-aaaaj-qa3xq-cai).
 
 ## Credits
 
