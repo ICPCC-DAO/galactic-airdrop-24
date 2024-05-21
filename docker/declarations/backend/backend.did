@@ -1,0 +1,288 @@
+type WithdrawalError = 
+ variant {
+   AlreadyPending;
+   NoPrizes;
+   TooManyPending;
+   UserNotFound;
+   WithdrawalAccountNotFound;
+ };
+type VerificationStatus = 
+ variant {
+   Failed;
+   Pending;
+   Verified;
+ };
+type Verification = 
+ record {
+   attempts: nat;
+   code: Code__1;
+   status: VerificationStatus;
+ };
+type User = 
+ record {
+   email: text;
+   numberOfSubmissions: nat;
+   "principal": principal;
+   verification: Verification;
+   withdrawalAccount: principal;
+ };
+type UpdateCallsAggregatedData = vec nat64;
+type Token__1 = 
+ record {
+   amount: nat;
+   decimal: nat;
+   fee: nat;
+   ledgerId: principal;
+   name: text;
+   symbol: text;
+ };
+type Token = 
+ record {
+   amount: nat;
+   decimal: nat;
+   fee: nat;
+   ledgerId: principal;
+   name: text;
+   symbol: text;
+ };
+type Time = int;
+type Result__1_1 = 
+ variant {
+   err: text;
+   ok: vec text;
+ };
+type Result__1 = 
+ variant {
+   err: text;
+   ok;
+ };
+type Result_2 = 
+ variant {
+   err: text;
+   ok: User;
+ };
+type Result_1 = 
+ variant {
+   err: WithdrawalError;
+   ok: nat;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type Prize__1 = variant {Token: Token__1;};
+type Prize = variant {Token: Token;};
+type NumericEntity = 
+ record {
+   avg: nat64;
+   first: nat64;
+   last: nat64;
+   max: nat64;
+   min: nat64;
+ };
+type Nanos = nat64;
+type MetricsGranularity = 
+ variant {
+   daily;
+   hourly;
+ };
+type LogMessagesData = 
+ record {
+   message: text;
+   timeNanos: Nanos;
+ };
+type HourlyMetricsData = 
+ record {
+   canisterCycles: CanisterCyclesAggregatedData;
+   canisterHeapMemorySize: CanisterHeapMemoryAggregatedData;
+   canisterMemorySize: CanisterMemoryAggregatedData;
+   timeMillis: int;
+   updateCalls: UpdateCallsAggregatedData;
+ };
+type GetMetricsParameters = 
+ record {
+   dateFromMillis: nat;
+   dateToMillis: nat;
+   granularity: MetricsGranularity;
+ };
+type GetLogMessagesParameters = 
+ record {
+   count: nat32;
+   filter: opt GetLogMessagesFilter;
+   fromTimeNanos: opt Nanos;
+ };
+type GetLogMessagesFilter = 
+ record {
+   analyzeCount: nat32;
+   messageContains: opt text;
+   messageRegex: opt text;
+ };
+type GetLatestLogMessagesParameters = 
+ record {
+   count: nat32;
+   filter: opt GetLogMessagesFilter;
+   upToTimeNanos: opt Nanos;
+ };
+type Email = 
+ record {
+   code: text;
+   email: text;
+   id: nat;
+ };
+type DailyMetricsData = 
+ record {
+   canisterCycles: NumericEntity;
+   canisterHeapMemorySize: NumericEntity;
+   canisterMemorySize: NumericEntity;
+   timeMillis: int;
+   updateCalls: nat64;
+ };
+type Code__2 = text;
+type Code__1 = text;
+type CodeSubmissionResult = 
+ variant {
+   err: CodeSubmissionError;
+   ok;
+ };
+type CodeSubmissionError = 
+ variant {
+   AirdropEnded;
+   AirdropNotFound;
+   AirdropNotStarted;
+   CodeInvalid;
+   CodeMaxUsageReached;
+   CodeNotFound;
+   UserAlreadyQualified;
+ };
+type Code = text;
+type CanisterMetricsData = 
+ variant {
+   daily: vec DailyMetricsData;
+   hourly: vec HourlyMetricsData;
+ };
+type CanisterMetrics = record {data: CanisterMetricsData;};
+type CanisterMemoryAggregatedData = vec nat64;
+type CanisterLogResponse = 
+ variant {
+   messages: CanisterLogMessages;
+   messagesInfo: CanisterLogMessagesInfo;
+ };
+type CanisterLogRequest = 
+ variant {
+   getLatestMessages: GetLatestLogMessagesParameters;
+   getMessages: GetLogMessagesParameters;
+   getMessagesInfo;
+ };
+type CanisterLogMessagesInfo = 
+ record {
+   count: nat32;
+   features: vec opt CanisterLogFeature;
+   firstTimeNanos: opt Nanos;
+   lastTimeNanos: opt Nanos;
+ };
+type CanisterLogMessages = 
+ record {
+   data: vec LogMessagesData;
+   lastAnalyzedMessageTimeNanos: opt Nanos;
+ };
+type CanisterLogFeature = 
+ variant {
+   filterMessageByContains;
+   filterMessageByRegex;
+ };
+type CanisterHeapMemoryAggregatedData = vec nat64;
+type CanisterCyclesAggregatedData = vec nat64;
+type Balance = 
+ record {
+   committedAmount: nat;
+   realAmount: nat;
+ };
+type AirdropStatus = 
+ variant {
+   Active;
+   Distributed;
+   Ended;
+   Upcoming;
+ };
+type AirdropManager = 
+ service {
+   /// * Adds the specified principal as an admin
+   ///         * @auth : admin
+   addAdmin: (text) -> (Result__1);
+   /// * Force collecting the data at current time.
+   ///         * Called from browser or any canister "update" method.
+   ///         * @auth : admin
+   collectCanisterMetrics: () -> ();
+   cronAirdrops: () -> ();
+   defineAirdrop: (AirdropInit) -> (Result);
+   /// * Returns a list of all the admins
+   getAdmins: () -> (Result__1_1) query;
+   getAllAirdropsDashboard: () -> (vec AirdropDashboard) query;
+   getBalanceAdmin: () -> (vec Balance) query;
+   /// * Returns collected log messages based on passed parameters.
+   ///         * Called from browser.
+   ///         * @auth : admin
+   getCanisterLog: (opt CanisterLogRequest) ->
+    (opt CanisterLogResponse) query;
+   /// * Returns collected data based on passed parameters.
+   ///         * Called from browser.
+   ///         * @auth : admin
+   getCanisterMetrics: (GetMetricsParameters) -> (opt CanisterMetrics) query;
+   getEmails: () -> (vec Email) query;
+   getPrizes: () -> (vec Prize) query;
+   getUser: () -> (Result_2) query;
+   getWalletAddressAdmin: () -> (text) query;
+   initiateWithdrawalRequest: () -> (Result_1);
+   registerUser: (text, principal) -> (Result);
+   /// * Removes the specified principal from the admin list
+   ///         * @auth : master
+   removeAdmin: (text) -> (Result__1);
+   reportSentEmails: (vec nat) -> (Result);
+   /// * Set the maximum number of saved log messages.
+   ///         * @auth : admin
+   setMaxMessagesCount: (nat) -> ();
+   setWallet: (principal) -> (Result);
+   startAirdropAdmin: (nat) -> (Result);
+   submitCode: (nat, text) -> (CodeSubmissionResult);
+   updatePrizesAdmin: () -> ();
+   verifyUser: (Code) -> (Result);
+ };
+type AirdropInit = 
+ record {
+   code: Code__2;
+   description: text;
+   distributionPrizes: record {
+                         float64;
+                         float64;
+                         float64;
+                       };
+   distributionTiers: record {
+                        float64;
+                        float64;
+                        float64;
+                      };
+   id: nat;
+   learnMore: text;
+   ledgerId: principal;
+   maxDuration: Time;
+   maxParticipants: nat;
+   name: text;
+   prize: Prize__1;
+   startTime: Time;
+ };
+type AirdropDashboard = 
+ record {
+   description: text;
+   id: nat;
+   learnMore: text;
+   maxDuration: Time;
+   maxParticipants: nat;
+   name: text;
+   numberOfParticipants: nat;
+   prize: Prize__1;
+   qualified: bool;
+   startTime: opt Time;
+   status: AirdropStatus;
+ };
+service : () -> AirdropManager

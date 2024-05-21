@@ -1,0 +1,135 @@
+.section {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.section-content {
+  grid-column: 2 / 12;
+  margin: 0 auto;
+  padding: 120px 0px;
+  max-width: 1400px;
+
+  @media screen and (max-width: 1024px) {
+    grid-column: 1/13;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-mobile);
+
+    @media screen and (max-width: 1024px) {
+      row-gap: var(--padding);
+      margin-bottom: var(--padding-2x);
+    }
+  }
+}
+
+.subtitle-uppercase {
+  text-transform: uppercase;
+  font-size: var(--font-size-subtext-1);
+  text-align: center;
+}
+
+.subtext-title-centered {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: 0 auto;
+  align-items: center;
+  text-align: center;
+  row-gap: var(--padding-2x);
+  margin-bottom: var(--padding-4x);
+
+  @media screen and (max-width: 1024px) {
+    row-gap: var(--padding);
+    margin-bottom: var(--padding-2x);
+  }
+}
+
+.subtext-title {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  row-gap: var(--padding-2x);
+  margin-bottom: var(--padding-4x);
+
+  @media screen and (max-width: 1024px) {
+    row-gap: var(--padding);
+    margin-bottom: 0;
+  }
+}
+
+.button-get-started {
+  background-color: var(--color-primary);
+}
+
+input {
+  font-size: 16px;
+}
+
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.yellow {
+  color: var(--color-primary);
+}
+
+.blue {
+  color: var(--color-secondary);
+}
+
+.white {
+  color: var(--color-white);
+}
+
+.show-on-mobile {
+  display: none;
+
+  @media screen and (max-width: 1024px) {
+    display: block;
+  }
+}
+
+.hide-on-mobile {
+  display: block;
+
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
+}
+
+
+.page {
+  display: grid;
+  min-height: 100%;
+  grid-template-columns: repeat(12, 1fr);
+  flex-grow: 1;
+}
+
+.page-content {
+  grid-column: 2 / 12;
+  padding: 40px 0px;
+  max-width: 1400px;
+
+  @media screen and (max-width: 1024px) {
+    grid-column: 1/13;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+  }
+}
+.page-title {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--padding-2x);
+
+
+  @media screen and (max-width: 1024px) {
+    row-gap: var(--padding);
+    margin-bottom: var(--padding-2x);
+  }
+}

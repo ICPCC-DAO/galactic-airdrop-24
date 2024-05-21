@@ -1,0 +1,74 @@
+html {
+  width: 100%;
+  background-color: black;
+}
+
+body {
+  margin: 0;
+  font-size: var(--font-size-standard);
+}
+
+
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+img {
+  // max-width: 100%;
+  display: block;
+  height: auto;
+}
+
+header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  line-height: var(--line-height-title);
+  margin: 0 0 var(--padding);
+}
+
+h1 {
+  font-size: var(--font-size-title-1);
+}
+
+h2 {
+  font-size: var(--font-size-title-2);
+}
+
+h3 {
+  font-size: var(--font-size-title-3);
+}
+
+h4 {
+  font-size: var(--font-size-title-4);
+}
+
+p {
+  font-size: var(--font-size-standard);
+}

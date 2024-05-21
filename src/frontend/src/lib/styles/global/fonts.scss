@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'Nasalization Rg';
+  src : url('/fonts/nasalization-rg.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src : url('/fonts/Montserrat-Bold.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src : url('/fonts/Montserrat-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+html {
+  font-size: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Nasalization Rg', sans-serif;
+  font-weight: 400;
+  line-height: var(--line-height-standard);
+}
+
+
+
+body {
+  font-family: 'Montserrat-Regular', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  line-height: var(--line-height-standard);
+}

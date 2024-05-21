@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "backend": {
+      "main": "src/backend/main.mo",
+      "type": "motoko",
+      "declarations": {
+        "node_compatibility": true
+      }
+    },
+    "frontend" : {
+      "frontend": {
+        "entrypoint": "build/index.html"
+      },
+      "source" : ["build/"],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "--hide-warnings",
+      "packtool": "mops sources"
+    }
+  },
+  "dfx": "0.17.0",
+  "version": 1
+}

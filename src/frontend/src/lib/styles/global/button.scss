@@ -1,0 +1,15 @@
+@use '../mixins/button';
+@use '../mixins/shadow';
+
+.button {
+  @include button.primary;
+  @include button.standard;
+  @include shadow.shadow;
+  color: var(--color-black);
+  background-color: var(--color-yellow);
+  border-radius: 10px;
+  padding: 1rem;
+  transition: background-color 0.3s ease; // Smooth transition for hover
+  font-family: 'Nasalization Rg', sans-serif;
+  min-width: 120px;
+}
