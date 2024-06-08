@@ -8,17 +8,15 @@ Welcome to the Open Internet Summer (OIS) platform for registering participants 
 
 # Initial setup
 
-Install node, mops, dfx, docker.
+Install node, mops, dfx.
 
 - `npm install`
 - `mops install`
-- `cd docker && docker build . -t deps`
 
 # Daily setup
 
 - (new tab) `dfx start`
-- (new tab) `cd docker && docker run -it deps`
-- (previous tab) `npm run dev` or `dfx deploy`
+- (previous tab) `dfx deploy` or `npm run dev`
 
 ## Credits
 

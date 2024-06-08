@@ -7,20 +7,31 @@
         "node_compatibility": true
       }
     },
-    "frontend" : {
+    "frontend": {
       "frontend": {
         "entrypoint": "build/index.html"
       },
-      "source" : ["build/"],
+      "source": ["build/"],
       "type": "assets"
+    },
+    "internet_identity": {
+      "type": "custom",
+      "candid": "https://github.com/dfinity/internet-identity/releases/download/release-2024-03-22/internet_identity.did",
+      "wasm": "https://github.com/dfinity/internet-identity/releases/download/release-2024-03-22/internet_identity_dev.wasm.gz",
+      "remote": {
+        "candid": "internet_identity.did",
+        "id": { "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai" }
+      },
+      "declarations": { "node_compatibility": true }
     }
   },
   "defaults": {
     "build": {
-      "args": "--hide-warnings",
+      "args": "",
       "packtool": "mops sources"
     }
   },
   "dfx": "0.20.1",
-  "version": 1
+  "version": 1,
+  "output_env_file": ".env"
 }
