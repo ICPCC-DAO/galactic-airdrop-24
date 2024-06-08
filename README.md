@@ -1,46 +1,25 @@
-# Galactic Airdrop 👽
+# Open Internet Summer 2024
 
-Live: https://o5cc5-dqaaa-aaaaj-qa3ya-cai.icp0.io/
+Welcome to the Open Internet Summer (OIS) platform for registering participants and storing their submissions.
 
-A huge thanks to all our partners that made this airdrop possible:
+##
 
-- [Querio](https://x.com/querio_io)
-- [iDoge](https://x.com/idoge_icp)
-- [DecideAI](https://x.com/DecideAI_)
-- [Windoge98](https://x.com/windoge_98)
-- [DragonEyes](https://x.com/ICDragonEyes)
-- [ICLighthouse](https://x.com/ICLighthouse)
-- [Sneed](https://x.com/icsneed)
-- [OpenChat](https://x.com/OpenChat)
-- [Ghost](https://x.com/ghost_icp)
-- [ICPSwap](https://x.com/ICPSwap)
-- [VaultBet](https://x.com/VaultBet)
-- [Nuance](https://x.com/nuancedapp)
-- [Catalyze](https://x.com/catalyze_one)
-- [Kinic](https://x.com/kinic_app)
-- [TheSwop](https://x.com/The_Swop)
-- [InsideDarkStudios](https://x.com/idarkstudio)
-- [Trax](https://x.com/trax_so)
-- [Clown](https://x.com/ICPClownin)
+## Dev Instructions
 
-And, of course, [Bioniq](https://bioniq.io/) for contributing the Galactic Alien.
+# Initial setup
 
-## Stats
+Install node, mops, dfx, docker.
 
-- 2250 Users.
-- 1735 Galactic Alien (All levels) minted.
-- 1240 Galactic Alien (Level 5).
-- 7827 $CONF Airdrop Points.
-- 2 blacklisted users (cheating attempt).
+- `npm install`
+- `mops install`
+- `cd docker && docker build . -t deps`
 
-To verify the stats on-chain, you can run the following command:
+# Daily setup
 
-```
-dfx canister --network ic ma7mv-qyaaa-aaaaj-qa3xq-cai call getStats
-```
-
-Or simply call the `getStats` method using the [ICP Dashboard](https://dashboard.internetcomputer.org/canister/ma7mv-qyaaa-aaaaj-qa3xq-cai).
+- (new tab) `dfx start`
+- (new tab) `cd docker && docker run -it deps`
+- (previous tab) `npm run dev` or `dfx deploy`
 
 ## Credits
 
-Created by [seb_icp](https://x.com/seb_icp/), with love, for the [ICPCC DAO](https://osjzm-oaaaa-aaaal-ajcoq-cai.icp0.io/) ❤️
+Created by [seb_icp](https://x.com/seb_icp/), and [Tiago89](https://github.com/tiagoicp) with love ❤️

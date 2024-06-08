@@ -3,17 +3,6 @@ import type { ActorMethod } from '@dfinity/agent';
 import type { IDL } from '@dfinity/candid';
 
 export type AccountIdentifier = string;
-export interface Airdrop {
-  'status' : AirdropStatus,
-  'timing' : AirdropTiming,
-  'metadata' : AirdropMetadata,
-  'code' : Code__1,
-  'tokenDetails' : TokenDetails,
-  'raffle' : [] | [RaffleData],
-  'distribution' : AirdropDistribution,
-  'qualified' : Array<Principal>,
-  'limits' : AirdropLimits,
-}
 export interface AirdropDashboard {
   'status' : AirdropStatus,
   'metadata' : AirdropMetadata,
@@ -25,7 +14,6 @@ export interface AirdropDistribution {
   'distributionPrizes' : [number, number, number],
   'distributionTiers' : [number, number, number],
 }
-export type AirdropId = bigint;
 export interface AirdropInit {
   'timing' : AirdropTiming,
   'metadata' : AirdropMetadata,
@@ -45,7 +33,6 @@ export interface AirdropManager {
     Array<[string, Principal, Principal, bigint]>
   >,
   'getAdmins' : ActorMethod<[], Array<Principal>>,
-  'getAirdrop' : ActorMethod<[AirdropId], [] | [Airdrop]>,
   'getAlienId' : ActorMethod<[Principal], [] | [number]>,
   'getAllAirdropsDashboard' : ActorMethod<[], Array<AirdropDashboard>>,
   'getBlacklist' : ActorMethod<[], Array<Principal>>,
@@ -65,7 +52,6 @@ export interface AirdropManager {
   'getTransfersDataAirdrop' : ActorMethod<[bigint], Result_3>,
   'getUser' : ActorMethod<[], Result_2>,
   'getUserAdmin' : ActorMethod<[Principal], Result_2>,
-  'isMissingData' : ActorMethod<[], Uint32Array | number[]>,
   'loadAirdropAdmin' : ActorMethod<[AirdropInit], Result>,
   'loadSpecialCodesAdmin' : ActorMethod<[Array<SpecialCode>], Result>,
   'loadTokensData' : ActorMethod<[TokensData], undefined>,
@@ -74,7 +60,6 @@ export interface AirdropManager {
   'registerUser' : ActorMethod<[string, Principal, string], Result>,
   'removeAdmin' : ActorMethod<[Principal], Result__1>,
   'removeCronJobsAdmin' : ActorMethod<[], Result>,
-  'removeDuplicatePrizes' : ActorMethod<[], undefined>,
   'removeJobAdmin' : ActorMethod<[bigint], Result>,
   'reportSentEmails' : ActorMethod<[Array<bigint>], Result>,
   'setCronJobsAdmin' : ActorMethod<[], Result>,
@@ -139,9 +124,6 @@ export interface DailyMetricsData {
 export type DistributionStatus = { 'Distributed' : bigint } |
   { 'Failed' : TransferError } |
   { 'NotDistributed' : null };
-export type DistributionStatus__1 = { 'Distributed' : bigint } |
-  { 'Failed' : TransferError } |
-  { 'NotDistributed' : null };
 export interface Email { 'id' : bigint, 'code' : string, 'email' : string }
 export interface GetLatestLogMessagesParameters {
   'upToTimeNanos' : [] | [Nanos],
@@ -189,27 +171,6 @@ export interface Prize {
   'amount' : bigint,
   'symbol' : string,
 }
-export interface Prize__1 {
-  'decimals' : bigint,
-  'ledgerId' : Principal,
-  'distributionStatus' : DistributionStatus__1,
-  'airdropId' : bigint,
-  'amount' : bigint,
-  'symbol' : string,
-}
-export interface RaffleData { 'output' : RaffleOutput, 'input' : RaffleInput }
-export interface RaffleInput {
-  'fee' : bigint,
-  'decimals' : bigint,
-  'ledgerId' : Principal,
-  'distributionPrizes' : [number, number, number],
-  'airdropId' : bigint,
-  'amount' : bigint,
-  'qualified' : Array<Principal>,
-  'distributionTiers' : [number, number, number],
-  'symbol' : string,
-}
-export type RaffleOutput = Array<[Principal, Prize__1]>;
 export type Result = { 'ok' : null } |
   { 'err' : string };
 export type Result_1 = { 'ok' : string } |
@@ -234,6 +195,7 @@ export interface Stats {
   'numberMeetups' : Array<[string, bigint]>,
   'numberBlacklisted' : bigint,
   'numberVerifiedUsers' : bigint,
+  'numberTotalAliens' : bigint,
 }
 export type Time = bigint;
 export type Time__1 = bigint;
@@ -275,4 +237,4 @@ export interface User {
 }
 export interface _SERVICE extends AirdropManager {}
 export declare const idlFactory: IDL.InterfaceFactory;
-export declare const init: ({ IDL }: { IDL: IDL }) => IDL.Type[];
+export declare const init: (args: { IDL: typeof IDL }) => IDL.Type[];

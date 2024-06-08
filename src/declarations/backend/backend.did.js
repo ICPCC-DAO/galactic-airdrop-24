@@ -1,6 +1,5 @@
 export const idlFactory = ({ IDL }) => {
   const Result = IDL.Variant({ 'ok' : IDL.Null, 'err' : IDL.Text });
-  const AirdropId = IDL.Nat;
   const AirdropStatus = IDL.Variant({
     'Open' : IDL.Null,
     'EntryClosed' : IDL.Null,
@@ -8,12 +7,6 @@ export const idlFactory = ({ IDL }) => {
     'PrizesDelivered' : IDL.Null,
     'PrizesAssigned' : IDL.Null,
     'Pending' : IDL.Null,
-  });
-  const Time = IDL.Int;
-  const AirdropTiming = IDL.Record({
-    'startTime' : IDL.Opt(Time),
-    'endTime' : IDL.Opt(Time),
-    'maxDuration' : Time,
   });
   const AirdropMetadata = IDL.Record({
     'id' : IDL.Nat,
@@ -23,7 +16,6 @@ export const idlFactory = ({ IDL }) => {
     'description' : IDL.Text,
     'learnMore' : IDL.Text,
   });
-  const Code__1 = IDL.Text;
   const TokenDetails = IDL.Record({
     'fee' : IDL.Nat,
     'decimals' : IDL.Nat,
@@ -31,65 +23,7 @@ export const idlFactory = ({ IDL }) => {
     'amount' : IDL.Nat,
     'symbol' : IDL.Text,
   });
-  const Timestamp = IDL.Nat64;
-  const TransferError = IDL.Variant({
-    'GenericError' : IDL.Record({
-      'message' : IDL.Text,
-      'error_code' : IDL.Nat,
-    }),
-    'TemporarilyUnavailable' : IDL.Null,
-    'BadBurn' : IDL.Record({ 'min_burn_amount' : IDL.Nat }),
-    'Duplicate' : IDL.Record({ 'duplicate_of' : IDL.Nat }),
-    'BadFee' : IDL.Record({ 'expected_fee' : IDL.Nat }),
-    'CreatedInFuture' : IDL.Record({ 'ledger_time' : Timestamp }),
-    'TooOld' : IDL.Null,
-    'InsufficientFunds' : IDL.Record({ 'balance' : IDL.Nat }),
-  });
-  const DistributionStatus__1 = IDL.Variant({
-    'Distributed' : IDL.Nat,
-    'Failed' : TransferError,
-    'NotDistributed' : IDL.Null,
-  });
-  const Prize__1 = IDL.Record({
-    'decimals' : IDL.Nat,
-    'ledgerId' : IDL.Principal,
-    'distributionStatus' : DistributionStatus__1,
-    'airdropId' : IDL.Nat,
-    'amount' : IDL.Nat,
-    'symbol' : IDL.Text,
-  });
-  const RaffleOutput = IDL.Vec(IDL.Tuple(IDL.Principal, Prize__1));
-  const RaffleInput = IDL.Record({
-    'fee' : IDL.Nat,
-    'decimals' : IDL.Nat,
-    'ledgerId' : IDL.Principal,
-    'distributionPrizes' : IDL.Tuple(IDL.Float64, IDL.Float64, IDL.Float64),
-    'airdropId' : IDL.Nat,
-    'amount' : IDL.Nat,
-    'qualified' : IDL.Vec(IDL.Principal),
-    'distributionTiers' : IDL.Tuple(IDL.Float64, IDL.Float64, IDL.Float64),
-    'symbol' : IDL.Text,
-  });
-  const RaffleData = IDL.Record({
-    'output' : RaffleOutput,
-    'input' : RaffleInput,
-  });
-  const AirdropDistribution = IDL.Record({
-    'distributionPrizes' : IDL.Tuple(IDL.Float64, IDL.Float64, IDL.Float64),
-    'distributionTiers' : IDL.Tuple(IDL.Float64, IDL.Float64, IDL.Float64),
-  });
   const AirdropLimits = IDL.Record({ 'maxParticipants' : IDL.Nat });
-  const Airdrop = IDL.Record({
-    'status' : AirdropStatus,
-    'timing' : AirdropTiming,
-    'metadata' : AirdropMetadata,
-    'code' : Code__1,
-    'tokenDetails' : TokenDetails,
-    'raffle' : IDL.Opt(RaffleData),
-    'distribution' : AirdropDistribution,
-    'qualified' : IDL.Vec(IDL.Principal),
-    'limits' : AirdropLimits,
-  });
   const AirdropDashboard = IDL.Record({
     'status' : AirdropStatus,
     'metadata' : AirdropMetadata,
@@ -193,6 +127,7 @@ export const idlFactory = ({ IDL }) => {
     'numberMeetups' : IDL.Vec(IDL.Tuple(IDL.Text, IDL.Nat)),
     'numberBlacklisted' : IDL.Nat,
     'numberVerifiedUsers' : IDL.Nat,
+    'numberTotalAliens' : IDL.Nat,
   });
   const TransferData = IDL.Vec(
     IDL.Tuple(IDL.Principal, IDL.Principal, IDL.Nat)
@@ -200,6 +135,20 @@ export const idlFactory = ({ IDL }) => {
   const Result_3 = IDL.Variant({ 'ok' : TransferData, 'err' : IDL.Text });
   const Time__1 = IDL.Int;
   const TokenIndex = IDL.Nat32;
+  const Timestamp = IDL.Nat64;
+  const TransferError = IDL.Variant({
+    'GenericError' : IDL.Record({
+      'message' : IDL.Text,
+      'error_code' : IDL.Nat,
+    }),
+    'TemporarilyUnavailable' : IDL.Null,
+    'BadBurn' : IDL.Record({ 'min_burn_amount' : IDL.Nat }),
+    'Duplicate' : IDL.Record({ 'duplicate_of' : IDL.Nat }),
+    'BadFee' : IDL.Record({ 'expected_fee' : IDL.Nat }),
+    'CreatedInFuture' : IDL.Record({ 'ledger_time' : Timestamp }),
+    'TooOld' : IDL.Null,
+    'InsufficientFunds' : IDL.Record({ 'balance' : IDL.Nat }),
+  });
   const DistributionStatus = IDL.Variant({
     'Distributed' : IDL.Nat,
     'Failed' : TransferError,
@@ -225,6 +174,17 @@ export const idlFactory = ({ IDL }) => {
     'numberOfSubmission' : IDL.Nat,
   });
   const Result_2 = IDL.Variant({ 'ok' : User, 'err' : IDL.Text });
+  const Time = IDL.Int;
+  const AirdropTiming = IDL.Record({
+    'startTime' : IDL.Opt(Time),
+    'endTime' : IDL.Opt(Time),
+    'maxDuration' : Time,
+  });
+  const Code__1 = IDL.Text;
+  const AirdropDistribution = IDL.Record({
+    'distributionPrizes' : IDL.Tuple(IDL.Float64, IDL.Float64, IDL.Float64),
+    'distributionTiers' : IDL.Tuple(IDL.Float64, IDL.Float64, IDL.Float64),
+  });
   const AirdropInit = IDL.Record({
     'timing' : AirdropTiming,
     'metadata' : AirdropMetadata,
@@ -259,7 +219,6 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'getAdmins' : IDL.Func([], [IDL.Vec(IDL.Principal)], ['query']),
-    'getAirdrop' : IDL.Func([AirdropId], [IDL.Opt(Airdrop)], ['query']),
     'getAlienId' : IDL.Func([IDL.Principal], [IDL.Opt(IDL.Nat32)], []),
     'getAllAirdropsDashboard' : IDL.Func(
         [],
@@ -285,7 +244,6 @@ export const idlFactory = ({ IDL }) => {
     'getTransfersDataAirdrop' : IDL.Func([IDL.Nat], [Result_3], ['query']),
     'getUser' : IDL.Func([], [Result_2], ['query']),
     'getUserAdmin' : IDL.Func([IDL.Principal], [Result_2], ['query']),
-    'isMissingData' : IDL.Func([], [IDL.Vec(IDL.Nat32)], []),
     'loadAirdropAdmin' : IDL.Func([AirdropInit], [Result], []),
     'loadSpecialCodesAdmin' : IDL.Func([IDL.Vec(SpecialCode)], [Result], []),
     'loadTokensData' : IDL.Func([TokensData], [], []),
@@ -298,7 +256,6 @@ export const idlFactory = ({ IDL }) => {
       ),
     'removeAdmin' : IDL.Func([IDL.Principal], [Result__1], []),
     'removeCronJobsAdmin' : IDL.Func([], [Result], []),
-    'removeDuplicatePrizes' : IDL.Func([], [], []),
     'removeJobAdmin' : IDL.Func([IDL.Nat], [Result], []),
     'reportSentEmails' : IDL.Func([IDL.Vec(IDL.Nat)], [Result], []),
     'setCronJobsAdmin' : IDL.Func([], [Result], []),

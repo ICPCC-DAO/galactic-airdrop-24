@@ -73,6 +73,7 @@ type Stats =
                         nat;
                       };
    numberOfSubmissions: nat;
+   numberTotalAliens: nat;
    numberUsers: nat;
    numberVerifiedUsers: nat;
  };
@@ -107,45 +108,6 @@ type Result =
  variant {
    err: text;
    ok;
- };
-type RaffleOutput = 
- vec record {
-       principal;
-       Prize__1;
-     };
-type RaffleInput = 
- record {
-   airdropId: nat;
-   amount: nat;
-   decimals: nat;
-   distributionPrizes: record {
-                         float64;
-                         float64;
-                         float64;
-                       };
-   distributionTiers: record {
-                        float64;
-                        float64;
-                        float64;
-                      };
-   fee: nat;
-   ledgerId: principal;
-   qualified: vec principal;
-   symbol: text;
- };
-type RaffleData = 
- record {
-   input: RaffleInput;
-   output: RaffleOutput;
- };
-type Prize__1 = 
- record {
-   airdropId: nat;
-   amount: nat;
-   decimals: nat;
-   distributionStatus: DistributionStatus__1;
-   ledgerId: principal;
-   symbol: text;
  };
 type Prize = 
  record {
@@ -212,12 +174,6 @@ type Email =
    code: text;
    email: text;
    id: nat;
- };
-type DistributionStatus__1 = 
- variant {
-   Distributed: nat;
-   Failed: TransferError;
-   NotDistributed;
  };
 type DistributionStatus = 
  variant {
@@ -309,7 +265,6 @@ type AirdropManager =
                                    nat;
                                  });
    getAdmins: () -> (vec principal) query;
-   getAirdrop: (AirdropId) -> (opt Airdrop) query;
    getAlienId: (principal) -> (opt nat32);
    getAllAirdropsDashboard: () -> (vec AirdropDashboard) query;
    getBlacklist: () -> (vec principal);
@@ -324,7 +279,6 @@ type AirdropManager =
    getTransfersDataAirdrop: (nat) -> (Result_3) query;
    getUser: () -> (Result_2) query;
    getUserAdmin: (principal) -> (Result_2) query;
-   isMissingData: () -> (vec nat32);
    loadAirdropAdmin: (AirdropInit) -> (Result);
    loadSpecialCodesAdmin: (vec SpecialCode) -> (Result);
    loadTokensData: (TokensData) -> ();
@@ -333,7 +287,6 @@ type AirdropManager =
    registerUser: (text, principal, text) -> (Result);
    removeAdmin: (principal) -> (Result__1);
    removeCronJobsAdmin: () -> (Result);
-   removeDuplicatePrizes: () -> ();
    removeJobAdmin: (nat) -> (Result);
    reportSentEmails: (vec nat) -> (Result);
    setCronJobsAdmin: () -> (Result);
@@ -354,7 +307,6 @@ type AirdropInit =
    timing: AirdropTiming;
    tokenDetails: TokenDetails;
  };
-type AirdropId = nat;
 type AirdropDistribution = 
  record {
    distributionPrizes: record {
@@ -374,18 +326,6 @@ type AirdropDashboard =
    metadata: AirdropMetadata;
    numberOfQualified: nat;
    status: AirdropStatus;
-   tokenDetails: TokenDetails;
- };
-type Airdrop = 
- record {
-   code: Code__1;
-   distribution: AirdropDistribution;
-   limits: AirdropLimits;
-   metadata: AirdropMetadata;
-   qualified: vec principal;
-   raffle: opt RaffleData;
-   status: AirdropStatus;
-   timing: AirdropTiming;
    tokenDetails: TokenDetails;
  };
 type AccountIdentifier = text;

@@ -16,7 +16,6 @@ let currentMinute = new Date().getMinutes();
 
 console.log('Docker identity is : ', exportIdentity().getPrincipal().toText());
 
-
 async function getEmails() {
   try {
     const emails = await authenticatedBackendActor().getEmails();
